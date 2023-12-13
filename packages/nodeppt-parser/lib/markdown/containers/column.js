@@ -25,12 +25,14 @@ module.exports = {
         let done = 0;
         for (let i = 0; i < tokens.length; i++) {
             const token = tokens[i];
-            if (token.type === 'container_' + name + '_open') {
+            if (token.type === 'container_' + name + '_open' && !token.meta.handle) {
+                token.meta.handle = true;
                 // 在 open 后面插入
                 tokens.splice(i + 1, 0, getOpenToken(token.level));
                 open = true;
                 i++;
-            } else if (token.type === 'container_' + name + '_close') {
+            } else if (token.type === 'container_' + name + '_close' && !token.meta.handle) {
+                token.meta.handle = true;
                 // 在 close 之前插入
                 tokens.splice(i, 0, getCloseToken(token.level));
                 open = false;

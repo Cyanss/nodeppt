@@ -37,10 +37,12 @@ module.exports = {
         for (let i = start; i < tokens.length; i++) {
             const token = tokens[i];
             // 分组
-            if (token.type === 'container_flexblock_open') {
+            if (token.type === 'container_flexblock_open' && !token.meta.handle) {
+                token.meta.handle = true;
                 open = true;
                 items[itemsIdx] = [i, token.level];
-            } else if (token.type === 'container_flexblock_close') {
+            } else if (token.type === 'container_flexblock_close' && !token.meta.handle) {
+                token.meta.handle = true;
                 open = false;
                 // end
                 items[itemsIdx][3] = i - 1;

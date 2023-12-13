@@ -32,11 +32,13 @@ module.exports = {
             context = [];
         for (let i = 0; i < tokens.length; i++) {
             let token = tokens[i];
-            if (token.type === 'container_' + name + '_open') {
+            if (token.type === 'container_' + name + '_open' && !token.meta.handle) {
+                token.meta.handle = true;
                 // 在 open 后面插入
                 open = true;
                 level = token.level + 1;
-            } else if (token.type === 'container_' + name + '_close') {
+            } else if (token.type === 'container_' + name + '_close' && !token.meta.handle) {
+                token.meta.handle = true;
                 // 在 close 之前插入
                 open = false;
             } else if (open && 'hr' === token.type && done === 0) {

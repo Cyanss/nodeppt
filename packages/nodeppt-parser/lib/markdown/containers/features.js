@@ -24,12 +24,14 @@ module.exports = {
         let done = 0;
         for (let i = start; i < tokens.length; i++) {
             const token = tokens[i];
-            if (token.type === 'container_' + name + '_open') {
+            if (token.type === 'container_' + name + '_open' && !token.meta.handle) {
+                token.meta.handle = true;
                 // 在 open 后面插入
                 tokens.splice(i + 1, 0, getOpenToken('li', token.level), getOpenToken('div', token.level + 1));
                 open = true;
                 i = i + 2;
-            } else if (token.type === 'container_' + name + '_close') {
+            } else if (token.type === 'container_' + name + '_close' && !token.meta.handle) {
+                token.meta.handle = true;
                 // 在 close 之前插入
                 tokens.splice(i, 0, getCloseToken('div', token.level + 1), getCloseToken('li', token.level));
                 open = false;

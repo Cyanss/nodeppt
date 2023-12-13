@@ -27,18 +27,23 @@ module.exports = {
         let open = false;
         let done = 0;
         for (let i = 0; i < tokens.length; i++) {
+
             const token = tokens[i];
-            if (token.type === 'container_' + name + '_open') {
+            if (token.type === 'container_' + name + '_open' && !token.meta.handle) {
+                token.meta.handle = true;
                 // 在 open 后面插入
                 tokens.splice(i + 1, 0, getOpenToken('li', token.level), getOpenToken('a', token.level + 1));
                 open = true;
+
                 i = i + 2;
-            } else if (token.type === 'container_' + name + '_close') {
+            } else if (token.type === 'container_' + name + '_close' && !token.meta.handle) {
+                token.meta.handle = true;
                 // 在 close 之前插入
                 tokens.splice(i, 0, getCloseToken('a', token.level + 1), getCloseToken('li', token.level));
                 open = false;
                 i = i + 2;
             } else if (open && 'hr' === token.type && done === 0) {
+
                 // 第一层的 Hr 需要替换
                 tokens.splice(
                     i,
@@ -104,14 +109,16 @@ module.exports = {
     },
     render(tokens, idx) {
         const token = tokens[idx];
-
+     
         if (token.nesting === 1) {
+
             const cmIndex = token.attrIndex('css-module');
             let clsIndex = token.attrIndex('class');
             let attrs = token.attrs || [];
 
             if (clsIndex >= 0) {
                 attrs[clsIndex][1] += cmIndex >= 0 ? ` flexblock gallery ${attrs[cmIndex][1]}` : ` flexblock gallery`;
+            
             } else {
                 attrs.push(['class', cmIndex >= 0 ? `flexblock gallery ${attrs[cmIndex][1]}` : `flexblock gallery`]);
             }
@@ -119,6 +126,8 @@ module.exports = {
             attrs = attrs.map(([key, value]) => {
                 return `${key}="${value}"`;
             });
+
+           
             // opening tag
             return `<ul ${attrs.join(' ')}>\n`;
         } else {

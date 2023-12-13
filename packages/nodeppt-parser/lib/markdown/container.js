@@ -1,4 +1,5 @@
 // 参考 markdown-it-container
+const Meta = require('./meta');
 module.exports = function container_plugin(md, name, options) {
     function validateDefault(params) {
         return params.trim().split(' ', 2)[0] === name;
@@ -133,10 +134,13 @@ module.exports = function container_plugin(md, name, options) {
         // this will prevent lazy continuations from ever going past our end marker
         state.lineMax = nextLine;
 
+        var openMeta = new Meta(name,'open');
+
         token = state.push('container_' + name + '_open', 'div', 1);
         token.markup = markup;
         token.block = true;
         token.info = params;
+        token.meta = openMeta;
         token.map = [startLine, nextLine];
 
         // 修正
@@ -144,9 +148,12 @@ module.exports = function container_plugin(md, name, options) {
 
         state.md.block.tokenize(state, startLine + 1, nextLine);
 
-        token = state.push('container_' + name + '_close', 'div', -1);
+        var closeMeta = new Meta(name,'close');
+        token = state.push('container_' + name + '_close', 'div', -2);
+
         token.markup = state.src.slice(start, pos);
         token.block = true;
+        token.meta = closeMeta;
         token.info = params;
 
         // 这里测试下
