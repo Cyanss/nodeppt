@@ -45,7 +45,7 @@
         "posthtml": "^0.12.0",
         "posthtml-parser": "^0.4.1",
         "posthtml-render": "^1.1.4",
-        "prismjs": "^1.15.0"
+        "prismjs": "^1.29.0"
     },
     "gitHead": "9fba34ba1a8cc3ab149c2447c313e25b1e25093e"
 }
