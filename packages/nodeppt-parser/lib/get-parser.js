@@ -33,11 +33,13 @@ module.exports = (plugins) => {
         contents.shift();
         return contents
             .map((c, i) => {
+                var attr = mdRender(c);
+                // console.log('\n',attr);
                 // 生成 attr
                 const html = `
 ${slideTag[i]}
 <div class="wrap" wrap="true">
-${mdRender(c)}
+${attr}
 </div>
 </slide>
       `;
