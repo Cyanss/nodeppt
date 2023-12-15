@@ -102,23 +102,37 @@ module.exports = {
                 itemArray.push(closeTag);
                 addCount += 2;
             } else if (flexblockClass.indexOf('clients') >= 0) {
-                // 偷懒的方法，直接取前三个
-                itemArray.splice(0, 1, getOpenToken('figure', level));
-                itemArray[2].type = 'text';
-                itemArray[2].content = '';
-                itemArray.splice(2, 0, getOpenToken('figcaption', level));
-                // 增加a标签
-                let linkTag = getOpenToken('a', level);
-                itemArray.unshift(linkTag);
-                itemArray.unshift(openTag);
 
-                itemArray.push(getCloseToken('figcaption', level));
+                if (itemArray.length >= 3) {
+                    // 偷懒的方法，直接取前三个
+                    itemArray.splice(0, 1, getOpenToken('figure', level));
+                    itemArray[2].type = 'text';
+                    itemArray[2].content = '';
+                    itemArray.splice(2, 0, getOpenToken('figcaption', level));
+                    // 增加a标签
+                    let linkTag = getOpenToken('a', level);
 
-                itemArray.push(getCloseToken('figure', level));
-                let linkCloseTag = getCloseToken('a', level);
-                itemArray.push(linkCloseTag);
-                itemArray.push(closeTag);
-                addCount += 5;
+                    itemArray.unshift(linkTag);
+                    itemArray.unshift(openTag);
+
+                    itemArray.push(getCloseToken('figcaption', level));
+
+                    itemArray.push(getCloseToken('figure', level));
+                    let linkCloseTag = getCloseToken('a', level);
+                    itemArray.push(linkCloseTag);
+                    itemArray.push(closeTag);
+                    addCount += 5;
+                } else {
+                    // 增加div标签
+                    let linkTag = getOpenToken('figcaption', level);
+                    itemArray.unshift(linkTag);
+                    itemArray.unshift(openTag);
+
+                    let linkCloseTag = getCloseToken('figcaption', level);
+                    itemArray.push(linkCloseTag);
+                    itemArray.push(closeTag);
+                    addCount += 2;
+                }
             } else if (flexblockClass.indexOf('features') >= 0) {
                 // 增加div标签
                 let linkTag = getOpenToken('div', level);
