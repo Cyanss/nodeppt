@@ -7,11 +7,11 @@
 <head>
     <meta charset="UTF-8">
     <title><%= title %> - By <%= speaker %></title>
-    <link rel="stylesheet" href="https://cdn.staticfile.org/font-awesome/4.7.0/css/font-awesome.min.css">
-    <link rel="stylesheet" href="https://cdn.staticfile.org/prism/1.29.0/themes/prism.min.css">
+    <link rel="stylesheet" href="https://gcore.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://gcore.jsdelivr.net/npm/prismjs@1.29.0/themes/prism.min.css">
     <link rel="stylesheet" href="https://cdn.staticfile.org/KaTeX/0.10.0-rc.1/katex.min.css">
     <% if (hasOwnProperty('prismTheme') && ['dark', 'coy', 'funky', 'okaidia', 'tomorrow', 'solarizedlight', 'twilight'].includes(prismTheme)) { %>
-        <link rel="stylesheet" href="https://cdn.staticfile.org/prism/1.29.0/themes/prism-<%= prismTheme %>.min.css">
+        <link rel="stylesheet" href="https://gcore.jsdelivr.net/npm/prismjs@1.29.0/themes/prism-<%= prismTheme %>.min.css">
     <% } %>
 
     <% if (hasOwnProperty('css') && css.length) { %>
@@ -31,10 +31,10 @@
     </article>
 </div>
 <% if (hasOwnProperty('plugins') && plugins && plugins.indexOf && ~plugins.indexOf('echarts')) { %>
-    <script src="https://cdn.staticfile.org/echarts/5.4.3/echarts.min.js"></script>
+    <script src="https://gcore.jsdelivr.net/npm/echarts@5.4.3/dist/echarts.min.js"></script>
 <% } %>
 <% if (hasOwnProperty('plugins') && plugins && plugins.indexOf && ~plugins.indexOf('mermaid')) { %>
-    <script src="https://cdn.staticfile.org/mermaid/10.6.1/mermaid.min.js"></script>
+    <script src="https://gcore.jsdelivr.net/npm/mermaid@10.6.1/dist/mermaid.min.js"></script>
 <% } %>
 
 <% if (hasOwnProperty('js') && js.length) { %>
