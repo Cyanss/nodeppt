@@ -3,11 +3,11 @@
  */
 // const path = require('path');
 const webpack = require('webpack');
-const {transformer, formatter} = require('nodeppt-shared-utils');
+const { transformer, formatter } = require('nodeppt-shared-utils');
 module.exports = (api, options) => {
-    const {version} = api.getNodepptOptions();
+    const { version } = api.getNodepptOptions();
     api.chainWebpack((webpackConfig) => {
-        const {getAssetPath, resolveLocal} = require('../lib/utils');
+        const { getAssetPath, resolveLocal } = require('../lib/utils');
         const inlineLimit = 4096;
 
         const genAssetSubPath = (dir) => {
@@ -62,7 +62,7 @@ module.exports = (api, options) => {
             .end()
             .use('nodeppt-parser')
             .loader(require.resolve('nodeppt-parser'))
-            .options({plugins: options.plugins, template: options.baseTemplate})
+            .options({ plugins: options.plugins, template: options.baseTemplate })
             .end();
 
         webpackConfig.module
@@ -70,7 +70,7 @@ module.exports = (api, options) => {
             .test(/\.js$/)
             .use('babel-loader')
             .loader(require.resolve('babel-loader'))
-            .options({cacheDirectory: true})
+            .options({ cacheDirectory: true })
             .end();
         // static assets -----------------------------------------------------------
 

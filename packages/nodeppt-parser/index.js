@@ -34,5 +34,11 @@ module.exports = function (content) {
     const globalSettings = defaultDeep(yamlSettings, defaults);
     content = parser(content);
 
-    return ejs.render(template, {...globalSettings, content});
+    // console.log('content \n',content);
+
+    let html = ejs.render(template, {...globalSettings, content});
+
+    // console.log('html \n',html);
+    
+    return html;
 };

@@ -101,7 +101,7 @@ module.exports = (api, options) => {
                 compiler,
                 Object.assign(
                     {
-                        clientLogLevel: 'none',
+                        clientLogLevel: 'info',
                         historyApiFallback: {
                             disableDotRule: true,
                             rewrites: [{from: /./, to: path.posix.join(options.baseUrl, 'index.html')}]
@@ -110,6 +110,7 @@ module.exports = (api, options) => {
                         watchContentBase: true,
                         hot: true,
                         quiet: true,
+                        progress: true,
                         compress: false,
                         publicPath: options.baseUrl,
                         overlay: false
@@ -168,6 +169,7 @@ module.exports = (api, options) => {
 
                 server.listen(port, host, err => {
                     if (err) {
+                        console.log('server error: \n', err);
                         reject(err);
                     }
                 });
