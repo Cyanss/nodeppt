@@ -79,7 +79,9 @@ module.exports = {
 
         const divToken = getOpenToken('div', level - 1);
         divToken.attrPush(['class', 'benefit']);
-        tokens.splice(ctxStart + 2, ctxEnd - ctxStart + 3, divToken, ...context, getCloseToken('div', level - 1));
+        tokens.splice(ctxStart + 2, context.length, divToken, ...context, getCloseToken('div', level - 1));
+        
+
         return state;
     },
     render(tokens, idx) {
