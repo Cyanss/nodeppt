@@ -32,7 +32,6 @@ module.exports = {
 
         for (let i = 0; i < tokens.length; i++) {
             const token = tokens[i];
-            console.log('\n', i)
             if (token.type === 'container_' + name + '_open' && !token.meta.handle) {
                 // 解决多级嵌套问题
                 if (wrapToken) {
