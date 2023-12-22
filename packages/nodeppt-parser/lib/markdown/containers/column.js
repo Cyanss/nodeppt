@@ -34,7 +34,6 @@ module.exports = {
             const token = tokens[i];
             console.log('\n', i)
             if (token.type === 'container_' + name + '_open' && !token.meta.handle) {
-                console.log('token open ', i)
                 // 解决多级嵌套问题
                 if (wrapToken) {
                     // 移除之前添加的 OpenToken 删除后，所有元素的下标前移  
@@ -65,22 +64,16 @@ module.exports = {
                 }
 
             } else if (token.type === 'container_' + name + '_close' && !token.meta.handle) {
-
-                console.log('token close ', i)
-
                 token.meta.handle = true;
                 // 在 close 之前插入
                 tokens.splice(i, 0, getCloseToken(token.level));
                 open = false;
                 i++;
             } else if (open && 'hr' === token.type && done === 0) {
-                console.log('token hr ', i)
-
                 // 第一层的 Hr 需要替换
                 tokens.splice(i, 1, getCloseToken(token.level - 1), getOpenToken(token.level - 1));
                 i++;
             } else if (open) {
-                console.log('token done ', i, done, token.tag)
                 // 加深一层，因为外面多套了一层div
                 token.level = token.level + 1;
                 // 保证hr 是最贴近 container 的一层
@@ -91,7 +84,6 @@ module.exports = {
                 }
             }
         }
-        // console.log('after tokens \n', JSON.stringify(tokens))
         return state;
     },
     render(tokens, idx) {
