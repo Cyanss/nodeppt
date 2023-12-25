@@ -35,6 +35,7 @@ mdIt.use(require('./markdown/container'), 'flexblock', require('./markdown/conta
 // 不用了
 // mdIt.use(require('./markdown/container'), 'specs', require('./markdown/containers/specs'));
 mdIt.use(require('./markdown/container'), 'cta', require('./markdown/containers/cta'));
+mdIt.use(require('./markdown/container'), 'cts', require('./markdown/containers/cts'));
 
 mdIt.use(require('./markdown/container'), 'gallery', require('./markdown/containers/gallery'));
 mdIt.use(require('./markdown/container'), 'div', require('./markdown/containers/div'));

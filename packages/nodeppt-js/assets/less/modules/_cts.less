@@ -1,0 +1,105 @@
+/*=============================================
+7. Promos/Offers (pricing, tagline, CTS...)
+=============================================== */
+
+.cts {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    .subject-left {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        max-width: 100%;
+        padding: 0.8rem;
+    }
+    .subject,
+    .subject-right {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        max-width: 100%;
+        padding: 0.8rem;
+    }
+    .subject-left {
+        max-width: 100%;
+        text-align: center;
+        flex: 1 0 auto;
+    }
+    .subject {
+        text-align: center;
+        flex: 1 0 auto;
+    }
+    .subject-right {
+        max-width: 100%;
+        text-align: center;
+        flex: 1 0 auto;
+    }
+    .subject span {
+        display: block;
+        font-size: 8rem;
+        line-height: 8rem;
+    }
+    .subject span sup {
+        font-size: 4rem;
+    }
+    p {
+        margin-bottom: 0;
+    }
+}
+
+@media (min-width: 768px) {
+   .cts .subject-left {
+        max-width: 50%;
+        padding: 4.8rem;
+    }
+    .cts .subject-left {
+        text-align: right;
+    }
+    .cts .subject,
+    .cts .subject-right {
+        max-width: 50%;
+        padding: 4.8rem;
+    }
+    .cts .subject-right {
+        text-align: left;
+    }
+    .cts .subject span {
+        font-size: 16rem;
+        line-height: 16rem;
+        sup {
+            font-size: 6rem;
+            vertical-align: middle;
+        }
+    }
+}
+
+/* --- Header CTS --- */
+
+.cts-cover {
+    display: table;
+    width: 100%;
+    h1 strong {
+        font-weight: 400;
+    }
+    @media (min-width: 1024px) {
+        h1 {
+            float: left;
+            max-width: 80%;
+        }
+        h1 strong {
+            display: block;
+        }
+        .button {
+            margin-top: 1.2rem;
+        }
+        .try {
+            text-align: center;
+        }
+    }
+    @media (max-width: 1023px) {
+        .alignright {
+            float: none;
+        }
+    }
+}
