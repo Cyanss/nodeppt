@@ -2,10 +2,10 @@ const name = 'gallery';
 
 module.exports = {
     validate(params) {
-        return params.trim().match(/^gallery(|-overlay)\s*(.*)$/);
+        return params.trim().match(/^gallery(|-overlay|-none)\s*(.*)$/);
     },
     handler(state, opts) {
-        const match = opts.match(/^gallery(|-overlay)\s*(.*)$/);
+        const match = opts.match(/^gallery(|-overlay|-none)\s*(.*)$/);
         if (match && match[1]) {
             opts = match[1].trim();
         }
@@ -87,12 +87,16 @@ module.exports = {
                                 openTag = getOpenToken('div', token.level - 2);
                                 closeTag = getCloseToken('div', token.level - 2);
                                 openTag.attrPush(['class', 'overlay']);
-                            } else {
+                                tokens.splice(i + 2, 0, openTag, ...tt, closeTag);
+                            } else if (opts.indexOf('gallery-none') != -1) {
+                                //不做处理
+                            } else  {
                                 openTag = getOpenToken('figcaption', token.level - 2);
                                 closeTag = getCloseToken('figcaption', token.level - 2);
+                                tokens.splice(i + 2, 0, openTag, ...tt, closeTag);
                             }
                             // 到头了
-                            tokens.splice(i + 2, 0, openTag, ...tt, closeTag);
+                            // tokens.splice(i + 2, 0, openTag, ...tt, closeTag);
                             // i = i + 4 + tt.length;
                             break;
                         }
