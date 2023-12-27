@@ -23,6 +23,7 @@ mdIt.use(require('./markdown/cite'));
 mdIt.use(require('./markdown/span'));
 
 mdIt.use(require('./markdown/container'), 'column', require('./markdown/containers/column'));
+mdIt.use(require('./markdown/container'), 'row', require('./markdown/containers/row'));
 mdIt.use(require('./markdown/container'), 'shadowbox', require('./markdown/containers/shadow'));
 mdIt.use(require('./markdown/container'), 'steps', require('./markdown/containers/steps'));
 mdIt.use(require('./markdown/container'), 'card', require('./markdown/containers/card'));

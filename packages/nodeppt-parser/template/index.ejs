@@ -63,14 +63,11 @@
 <% } %>
 
 document.addEventListener('DOMContentLoaded', () => {
-    let isPrintMode = false;
-    if(~location.search.indexOf('print-pdf')){
-        isPrintMode = true;
-        WebSlides.registerPlugin('scroll', function(){});
-    }
+    
     const wsOptions = {
         loop: false
     };
+    
     if(window.webslidesOptions){
         for (let i in webslidesOptions){
             if(webslidesOptions.hasOwnProperty(i)){
@@ -78,13 +75,23 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         }
     }
-    const ws = new WebSlides(wsOptions)
-
-    window.wsInstance = ws;
-    if(isPrintMode){
-        ws.slides.forEach(s=>s.show())
-    }
+    // 初始化 WebSlides
+    window.wsInstance = new WebSlides(wsOptions)
 }, false)
+
+window.addEventListener("beforeprint",() => {
+    let webSlides = window.wsInstance;
+
+    // console.log('webSlides',webSlides);
+
+    webSlides.goToSlide(0,false);
+
+    webSlides.slides.forEach(slide => {
+        // console.log('slide',slide);
+        // console.log('el',slide.el);
+        slide.show();
+    });
+}); 
 </script>
 </body>
 </html>

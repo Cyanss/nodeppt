@@ -140,6 +140,18 @@ Slides - Backgrounds <section class="bg-primary">
     background: linear-gradient(to bottom, @black 0%, #1a2028 50%, #293845 100%);
 }
 
+.bg-night {
+    background: linear-gradient(to bottom, #1c1f1f 100%, #1a1e20 50%, #1c1f1f 100%);
+}
+
+.bg-dark {
+    background: #191a1b;
+}
+
+.bg-grey {
+    background: grey;
+}
+
 /*Font Color*/
 
 .bg-trans-dark,
@@ -152,6 +164,9 @@ Slides - Backgrounds <section class="bg-primary">
 .bg-red,
 .bg-facebook,
 .bg-apple,
+.bg-night,
+.bg-dark,
+.bg-grey,
 [class*='bg-black'],
 [class*='bg-gradient-'] {
     color: @white;
@@ -170,6 +185,10 @@ Slides - Backgrounds <section class="bg-primary">
 
 .bg-trans-dark {
     background: fade(@black, (0.8 * 100));
+}
+
+.bg-trans-black-blue {
+    background: fade(@pattens-blue, (0.8 * 100));
 }
 
 .bg-trans-light {
@@ -913,6 +932,18 @@ Slides Index
 }
 
 #webslides-zoomed .column > .wrap-zoom {
+    background-color: @catskill-white;
+    box-shadow: 0 1px 1px rgba(0, 0, 0, 0.2), 0 4px 8px rgba(0, 0, 0, 0.04);
+    color: @mine-shaft;
+    &:hover {
+        box-shadow: 0 1px 1px rgba(0, 0, 0, 0.2), 0 4px 8px rgba(0, 0, 0, 0.08);
+    }
+    &.current {
+        border: 0.6rem solid rgba(0, 20, 280, 0.2);
+    }
+}
+
+#webslides-zoomed .row > .wrap-zoom {
     background-color: @catskill-white;
     box-shadow: 0 1px 1px rgba(0, 0, 0, 0.2), 0 4px 8px rgba(0, 0, 0, 0.04);
     color: @mine-shaft;
