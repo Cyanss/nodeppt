@@ -144,16 +144,144 @@ Slides - Backgrounds <section class="bg-primary">
     background: linear-gradient(to bottom, #1c1f1f 100%, #1a1e20 50%, #1c1f1f 100%);
 }
 
-.bg-dark {
-    background: #191a1b;
+.bg-dawn {
+    background: linear-gradient(to bottom, #f2f5f6 100%, #e0e2e3 50%, #f2f5f6 100%);
 }
 
-.bg-grey {
-    background: grey;
+
+/*Transparent/Opacity*/
+
+.bg-trans-night {
+    background: linear-gradient(to bottom, fade(#1c1f1f, (0.8 * 100)) 100%, fade(#1a1e20, (0.2 * 100)) 0%);
 }
+
+.bg-trans-dawn {
+    background: linear-gradient(to bottom, fade(#f2f5f6, (0.8 * 100)) 100%, fade(#e0e2e3, (0.2 * 100)) 0%);
+}
+
+.bg-trans-black {
+    background: linear-gradient(to bottom, fade(@black, (0.8 * 100)) 100%, fade(@black, (0.2 * 100)) 0%);
+}
+
+.bg-trans-dark {
+    background: linear-gradient(to bottom, fade(@black, (0.4 * 100)) 100%, fade(@black, (0.1 * 100)) 0%);
+}
+
+.bg-trans-white {
+    background: linear-gradient(to bottom, fade(@white, (0.8 * 100)) 100%, fade(@white, (0.2 * 100)) 0%);
+}
+
+.bg-trans-light {
+    background: linear-gradient(to bottom, fade(@white, (0.4 * 100)) 100%, fade(@white, (0.1 * 100)) 0%);
+}
+
+
+.bg-bottom-white {
+    background: linear-gradient(to bottom, fade(@white, (0.8 * 100)) 0%, fade(@white, (0.2 * 100)) 100%);
+}
+
+.bg-top-white {
+    background: linear-gradient(to top, fade(@white, (0.8 * 100)) 0%, fade(@white, (0.2 * 100)) 100%);
+}
+
+.bg-bottom-black {
+    background: linear-gradient(to bottom, fade(@black, (0.8 * 100)) 0%, fade(@black, (0.2 * 100)) 100%);
+}
+
+.bg-top-black {
+    background: linear-gradient(to top, fade(@black, (0.8 * 100)) 0%, fade(@black, (0.2 * 100)) 100%);
+}
+
+.bg-bottom-dark {
+    background: linear-gradient(to bottom, fade(@black, (0.5 * 100)) 0%, fade(@black, (0.1 * 100)) 100%);
+}
+
+.bg-top-dark {
+    background: linear-gradient(to top, fade(@black, (0.5 * 100)) 0%, fade(@black, (0.1 * 100)) 100%);
+}
+
+.bg-bottom-light {
+    background: linear-gradient(to bottom, fade(@white, (0.5 * 100)) 0%, fade(@white, (0.1 * 100)) 100%);
+}
+
+.bg-top-light {
+    background: linear-gradient(to top, fade(@white, (0.5 * 100)) 0%, fade(@white, (0.1 * 100)) 100%);
+}
+
+.bg-right-white {
+    background: linear-gradient(to right, fade(@white, (0.8 * 100)) 0%, fade(@white, (0.2 * 100)) 100%);
+}
+
+.bg-left-white {
+    background: linear-gradient(to left, fade(@white, (0.8 * 100)) 0%, fade(@white, (0.2 * 100)) 100%);
+}
+
+.bg-right-black {
+    background: linear-gradient(to right, fade(@black, (0.8 * 100)) 0%, fade(@black, (0.2 * 100)) 100%);
+}
+
+.bg-left-black {
+    background: linear-gradient(to left, fade(@black, (0.8 * 100)) 0%, fade(@black, (0.2 * 100)) 100%);
+}
+
+.bg-right-dark {
+    background: linear-gradient(to right, fade(@black, (0.5 * 100)) 0%, fade(@black, (0.1 * 100)) 100%);
+}
+
+.bg-left-dark {
+    background: linear-gradient(to left, fade(@black, (0.5 * 100)) 0%, fade(@black, (0.1 * 100)) 100%);
+}
+
+.bg-right-light {
+    background: linear-gradient(to right, fade(@white, (0.5 * 100)) 0%, fade(@white, (0.1 * 100)) 100%);
+}
+
+.bg-left-light {
+    background: linear-gradient(to left, fade(@white, (0.5 * 100)) 0%, fade(@white, (0.1 * 100)) 100%);
+}
+
+
+.bg-bottom-black-white {
+    background: linear-gradient(to bottom, fade(@black, (0.8 * 100)) 0%, fade(@white, (0.8 * 100)) 100%);
+}
+
+.bg-top-black-white {
+    background: linear-gradient(to top, fade(@black, (0.8 * 100)) 0%, fade(@white, (0.8 * 100)) 100%);
+}
+
+.bg-right-black-white {
+    background: linear-gradient(to right, fade(@black, (0.8 * 100)) 0%, fade(@white, (0.8 * 100)) 100%);
+}
+
+.bg-left-black-white {
+    background: linear-gradient(to left, fade(@black, (0.8 * 100)) 0%, fade(@white, (0.8 * 100)) 100%);
+}
+
+.bg-bottom-dark-light {
+    background: linear-gradient(to bottom, fade(@black, (0.5 * 100)) 0%, fade(@white, (0.5 * 100)) 100%);
+}
+
+.bg-top-dark-light {
+    background: linear-gradient(to top, fade(@black, (0.5 * 100)) 0%, fade(@white, (0.5 * 100)) 100%);
+}
+
+.bg-right-dark-light {
+    background: linear-gradient(to right, fade(@black, (0.5 * 100)) 0%, fade(@white, (0.5 * 100)) 100%);
+}
+
+.bg-left-dark-light {
+    background: linear-gradient(to left, fade(@black, (0.5 * 100)) 0%, fade(@white, (0.5 * 100)) 100%);
+}
+
 
 /*Font Color*/
 
+.bg-apple,
+.bg-night,
+.bg-black,
+.bg-dark,
+.bg-trans-night,
+.bg-trans-black,
 .bg-trans-dark,
 .bg-trans-gradient,
 .bg-primary,
@@ -162,11 +290,7 @@ Slides - Backgrounds <section class="bg-primary">
 .bg-green,
 .bg-purple,
 .bg-red,
-.bg-facebook,
-.bg-apple,
-.bg-night,
-.bg-dark,
-.bg-grey,
+.bg-facebook
 [class*='bg-black'],
 [class*='bg-gradient-'] {
     color: @white;
@@ -181,26 +305,13 @@ Slides - Backgrounds <section class="bg-primary">
     color: #666;
 }
 
-/*Transparent/Opacity*/
-
-.bg-trans-dark {
-    background: fade(@black, (0.8 * 100));
-}
-
-.bg-trans-black-blue {
-    background: fade(@pattens-blue, (0.8 * 100));
-}
-
-.bg-trans-light {
-    background: fade(@black, (0.2 * 100));
-}
 
 /*Covers/Longforms...*/
 
 .bg-trans-gradient {
     background: linear-gradient(to top, fade(@black, (0.8 * 100)) 0%, fade(@black, (0 * 100)) 100%);
 }
-
+ 
 /*Horizontal Gradient*/
 
 .bg-gradient-h {
