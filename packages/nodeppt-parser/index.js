@@ -20,7 +20,9 @@ module.exports = function (content) {
     const resourcePath = this.resourcePath;
     const parser = getParser(plugins);
 
-    const settings = content.split(/<slide.*>/i)[0];
+    const splitArray = content.split(/<header.*>|<footer.*>|<slide.*>/i);
+
+    const settings = splitArray[0];
     const yamlSettings = yamlParser(settings);
     // 支持baseTemplate，传入ejs模板
     let template = defaultTemplate;
@@ -34,11 +36,7 @@ module.exports = function (content) {
     const globalSettings = defaultDeep(yamlSettings, defaults);
     content = parser(content);
 
-    // console.log('content \n',content);
-
     let html = ejs.render(template, {...globalSettings, content});
-
-    // console.log('html \n',html);
     
     return html;
 };

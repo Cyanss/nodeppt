@@ -44,7 +44,7 @@ ${attr}
 </slide>
       `;
                 // 生成 content ast
-                return posthtml(buildInPosthtmlPlugins.concat(posthtmlPlugins)).process(html, {sync: true}).html;
+                return posthtml(buildInPosthtmlPlugins.concat(posthtmlPlugins)).process(html, { sync: true }).html;
             })
             .join('\n');
     };
