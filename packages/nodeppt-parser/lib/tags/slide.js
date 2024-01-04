@@ -65,7 +65,7 @@ module.exports = tree => {
                                 }
                                 if (c === 'wrap-bg') {
                                     useWrapBackground = true;
-                                    return false;
+                                    return '';
                                 }
                                 return `background-${c}`;
                             }
