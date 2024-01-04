@@ -1,15 +1,15 @@
-const {mergeAttrs} = require('../utils');
+const { mergeAttrs } = require('../utils');
 
-const {getAttrs, getAttrsString} = require('../markdown/attrs/utils');
+const { getAttrs, getAttrsString } = require('../markdown/attrs/utils');
 
 /**
  * <slide image="url .abc" video="url .abc poster_url">
  */
 module.exports = tree => {
-    tree.match({tag: 'slide'}, node => {
+
+    tree.match({ tag: 'slide' }, node => {
         node.tag = 'section';
-        node.attrs = mergeAttrs(
-            {
+        node.attrs = mergeAttrs({
                 slide: true,
                 class: 'slide'
             },
@@ -40,6 +40,7 @@ module.exports = tree => {
             const rs = {};
             let cls = [];
             let noBackgroundClass = false;
+            let useWrapBackground = false;
             if (imgAttrs.length) {
                 imgAttrs.forEach(([key, value]) => {
                     if (key === 'class') {
@@ -62,6 +63,10 @@ module.exports = tree => {
                                 ) {
                                     noBackgroundClass = true;
                                 }
+                                if (c === 'wrap-bg') {
+                                    useWrapBackground = true;
+                                    return false;
+                                }
                                 return `background-${c}`;
                             }
 
@@ -73,14 +78,32 @@ module.exports = tree => {
                 });
             }
 
-            node.content.unshift({
-                tag: 'span',
-                attrs: {
-                    ...rs,
-                    class: [noBackgroundClass ? '' : 'background', ...cls].join(' '),
-                    style: `background-image:url('${image}')`
-                }
-            });
+            if (useWrapBackground) {
+                // console.log('node \n',JSON.stringify(node))
+                node.content.forEach(innerNode => {
+                    if (innerNode.attrs && innerNode.attrs.wrap) {
+                        innerNode.content.unshift({
+                            tag: 'span',
+                            attrs: {
+                                ...rs,
+                                class: [noBackgroundClass ? '' : 'background', ...cls].join(' '),
+                                style: `background-image:url('${image}')`
+                            }
+                        });
+                    }
+                    return node;
+                });
+
+            } else {
+                node.content.unshift({
+                    tag: 'span',
+                    attrs: {
+                        ...rs,
+                        class: [noBackgroundClass ? '' : 'background', ...cls].join(' '),
+                        style: `background-image:url('${image}')`
+                    }
+                });
+            }
         } else if (attrs.youtube) {
             const ybAttrs = getAttrs(`{${attrs.youtube}}`, 0, {
                 leftDelimiter: '{',
@@ -96,7 +119,7 @@ module.exports = tree => {
                         cls = value.split('.').map(c => {
                             return c;
                         });
-                    }else if(key==='id'){
+                    } else if (key === 'id') {
                         key = 'youtube-id'
                     }
                     rs[`data-${key}`] = value.replace(/^[\'\"]|[\'\"]$/g, '');
@@ -108,13 +131,11 @@ module.exports = tree => {
             cls.push('embed');
             node.content.unshift({
                 tag: 'div',
-                attrs: {class: cls.join(' ')},
-                content: [
-                    {
-                        tag: 'div',
-                        attrs: rs
-                    }
-                ]
+                attrs: { class: cls.join(' ') },
+                content: [{
+                    tag: 'div',
+                    attrs: rs
+                }]
             });
         } else if (attrs.video) {
             let [src, ...videoAttrs] = attrs.video.split(/\s+/);
@@ -139,7 +160,7 @@ module.exports = tree => {
                     }
                 });
             }
-            rs = Object.assign(rs, {loop: true, muted: true});
+            rs = Object.assign(rs, { loop: true, muted: true });
             const videoAttr = {
                 ...rs,
                 autoplay: 'autoplay',
@@ -148,7 +169,7 @@ module.exports = tree => {
             };
             // 支持多个
             src = src.split(',').map(s => {
-                return {tag: 'source', attrs: {src: s}};
+                return { tag: 'source', attrs: { src: s } };
             });
             node.content.unshift({
                 tag: 'video',

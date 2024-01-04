@@ -28,6 +28,49 @@ module.exports = (plugins) => {
     const mdRender = getMdParser(markdownPlugins);
 
     return (str) => {
+
+        // 全局 header 
+        const headerTags = str.match(/\n<header\s*(.*)>/gim) || [];
+        const headerContents = str.split(/\n<header.*>/im);
+        headerContents.shift();
+        let headerHtml = '';
+        if (headerTags.length > 0 && headerContents.length > 0) {
+            let headerTag = headerTags[0];
+            let headerContent = headerContents[0].split(/\n<footer.*>|<slide.*>/im)[0];
+            let headerAttr = mdRender(headerContent);
+            headerHtml = `
+${headerTag}
+<div class="wrap" header="true">
+${headerAttr}
+</div>
+</header>
+      `;
+
+        }
+        // console.log('headerHtml', headerHtml)
+
+
+        // 全局 footer 
+        const footerTags = str.match(/\n<footer\s*(.*)>/gim) || [];
+        const footerContents = str.split(/\n<footer.*>/im);
+        footerContents.shift();
+
+        let footerHtml = '';
+        if (footerTags.length > 0 && footerContents.length > 0) {
+            let footerTag = footerTags[0];
+            let footerContent = footerContents[0].split(/\n<header.*>|<slide.*>/im)[0];
+            let footerAttr = mdRender(footerContent);
+            footerHtml = `
+${footerTag}
+<div class="wrap" footer="true">
+${footerAttr}
+</div>
+</footer>
+      `;
+
+        }
+        // console.log('footerHtml', footerHtml)
+
         const slideTag = str.match(/\n<slide\s*(.*)>/gim) || [];
         const contents = str.split(/\n<slide.*>/im);
         contents.shift();
@@ -38,9 +81,11 @@ module.exports = (plugins) => {
                 // 生成 attr
                 const html = `
 ${slideTag[i]}
+${headerHtml}
 <div class="wrap" wrap="true">
 ${attr}
 </div>
+${footerHtml}
 </slide>
       `;
                 // 生成 content ast

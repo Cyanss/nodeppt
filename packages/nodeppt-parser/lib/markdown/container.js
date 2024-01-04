@@ -139,7 +139,7 @@ module.exports = function container_plugin(md, name, options) {
         token = state.push('container_' + name + '_open', 'div', 1);
         token.markup = markup;
         token.block = true;
-        token.info = params;
+        token.info = params.trim();
         token.meta = openMeta;
         token.map = [startLine, nextLine];
 
@@ -154,7 +154,7 @@ module.exports = function container_plugin(md, name, options) {
         token.markup = state.src.slice(start, pos);
         token.block = true;
         token.meta = closeMeta;
-        token.info = params;
+        token.info = params.trim();
 
         // 这里测试下
         handler(state, params, startLine + len - 1, len);
