@@ -40,7 +40,7 @@ module.exports = (plugins) => {
             let headerAttr = mdRender(headerContent);
             headerHtml = `
 ${headerTag}
-<div class="wrap" header="true">
+<div class="header-wrap" header="true">
 ${headerAttr}
 </div>
 </header>
@@ -62,7 +62,7 @@ ${headerAttr}
             let footerAttr = mdRender(footerContent);
             footerHtml = `
 ${footerTag}
-<div class="wrap" footer="true">
+<div class="footer-wrap" footer="true">
 ${footerAttr}
 </div>
 </footer>

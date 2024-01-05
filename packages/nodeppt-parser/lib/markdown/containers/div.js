@@ -1,4 +1,4 @@
-const {getAttrs, getAttrsString} = require('../attrs/utils');
+const { getAttrs, getAttrsString } = require('../attrs/utils');
 
 module.exports = {
     validate(params) {
@@ -14,7 +14,9 @@ module.exports = {
             tag = token.info;
         }
         if (token.nesting === 1) {
+
             let attrs = token.attrs || [];
+
             attrs = attrs.map(([key, value]) => {
                 return `${key}="${value}"`;
             });

@@ -1,3 +1,4 @@
+const { mergeAttrs } = require('../utils');
 const utils = require('./utils');
 const { getAttrs, getAttrsString } = require('../markdown/attrs/utils');
 
@@ -12,13 +13,14 @@ module.exports = tree => {
 
             //先处理header
             if (node.tag === 'header') {
+
                 // 监测到wrap中有header 对全局的 header进行删除覆盖
                 slideNode.content = slideNode.content.filter(slideContentNode => slideContentNode.tag !== 'header');
 
                 node.content = [{
                     tag: 'div',
                     attrs: {
-                        class: 'wrap',
+                        class: 'header-wrap',
                         header: 'true'
                     },
                     content: node.content
@@ -37,7 +39,7 @@ module.exports = tree => {
                 node.content = [{
                     tag: 'div',
                     attrs: {
-                        class: 'wrap',
+                        class: 'footer-wrap',
                         footer: 'true'
                     },
                     content: node.content
@@ -54,11 +56,55 @@ module.exports = tree => {
     }
 
     if (slideNode.content && slideNode.content.length) {
-        slideNode.content.forEach(node => {
+        slideNode.content = slideNode.content.filter(node => {
             // 遍历 header 和 footer 支持 背景图
             if (node.tag === 'header' || node.tag === 'footer') {
 
+                // slide 使用 youtube、video 以及 fullscreen 属性时 移除 header 和 footer 
+                const slideAttrs = slideNode.attrs;
+
+                // console.log('slideAttrs', JSON.stringify(slideAttrs))
+
+                if (slideAttrs.class && slideAttrs.class.indexOf('fullscreen') !== -1) {
+                    return false;
+                }
+
+                if(slideAttrs.youtube || slideAttrs.video ) {
+                    return false;
+                }
+
+                // disableheader
+
+                if (node.tag === 'header' && slideAttrs.class && slideAttrs.class.indexOf('disableheader') !== -1) {
+                    return false;
+                }
+
+                 // disablefooter
+
+                if (node.tag === 'footer' && slideAttrs.class && slideAttrs.class.indexOf('disablefooter') !== -1) {
+                    return false;
+                }
+
                 const attrs = node.attrs;
+
+                const wrapAttrs = {};
+
+                if (attrs) {
+
+                    for (let i in attrs) {
+                        if (i.startsWith(':')) {
+                            // 这是 wrap 的样式
+                            wrapAttrs[i.slice(1)] = attrs[i];
+                        }
+                    }
+                    if (Object.keys(wrapAttrs).length > 0) {
+                        node.content.forEach(innerNode => {
+                            if (innerNode && innerNode.attrs && (innerNode.attrs.header || innerNode.attrs.footer)) {
+                                innerNode.attrs = mergeAttrs(innerNode.attrs, wrapAttrs);
+                            }
+                        });
+                    }
+                }
 
                 if (attrs && attrs.image) {
                     let [image, ...imgAttrs] = attrs.image.split(/\s+/);
@@ -94,7 +140,7 @@ module.exports = tree => {
                                         ) {
                                             noBackgroundClass = true;
                                         }
-                                        if (c === 'wrap-bg') {
+                                        if (c === 'wrapbg') {
                                             useWrapBackground = true;
                                             return '';
                                         }
@@ -111,7 +157,7 @@ module.exports = tree => {
 
                     if (useWrapBackground) {
                         node.content.forEach(innerNode => {
-                            if (innerNode.attrs && (innerNode.attrs.header || innerNode.attrs.footer)) {
+                            if (innerNode && innerNode.attrs && (innerNode.attrs.header || innerNode.attrs.footer)) {
                                 innerNode.content.unshift({
                                     tag: 'span',
                                     attrs: {
@@ -137,6 +183,7 @@ module.exports = tree => {
 
                 }
             }
+            return true;
 
         })
     }

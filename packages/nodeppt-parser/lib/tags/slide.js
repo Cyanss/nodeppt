@@ -7,10 +7,30 @@ const { getAttrs, getAttrsString } = require('../markdown/attrs/utils');
  */
 module.exports = tree => {
 
+    tree.match({ tag: 'header' }, node => {
+        node.attrs = mergeAttrs({
+                header: 'true',
+                class: 'header'
+            },
+            node.attrs
+        );
+        return node;
+    });
+
+    tree.match({ tag: 'footer' }, node => {
+        node.attrs = mergeAttrs({
+                footer: 'true',
+                class: 'footer'
+            },
+            node.attrs
+        );
+        return node;
+    })
+
     tree.match({ tag: 'slide' }, node => {
         node.tag = 'section';
         node.attrs = mergeAttrs({
-                slide: true,
+                slide: 'true',
                 class: 'slide'
             },
             node.attrs
@@ -63,7 +83,7 @@ module.exports = tree => {
                                 ) {
                                     noBackgroundClass = true;
                                 }
-                                if (c === 'wrap-bg') {
+                                if (c === 'wrapbg') {
                                     useWrapBackground = true;
                                     return '';
                                 }
