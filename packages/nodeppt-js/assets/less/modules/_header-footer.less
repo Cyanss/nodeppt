@@ -6,6 +6,7 @@
 https://github.com/webslides/webslides/issues/57 -- */
 
 .header,
+.subject,
 .footer {
     display: flex;
     flex-direction: column;
@@ -13,15 +14,15 @@ https://github.com/webslides/webslides/issues/57 -- */
     align-items: center;
 
     @media (max-height: 1080px) {
-        height: 9rem;
+        height: 7.2rem;
     }
 
     @media (max-height: 768px) {
-        height: 7rem;
+        height: 4.8rem;
     }
 
     @media (max-height: 600px) {
-        height: 6rem;
+        height: 2.4rem;
     }
 
     @media (max-height: 360px) {
@@ -31,6 +32,7 @@ https://github.com/webslides/webslides/issues/57 -- */
 }
 
 .header-wrap,
+.subject-wrap,
 .footer-wrap {
     margin-left: auto;
     margin-right: auto;
@@ -42,14 +44,23 @@ https://github.com/webslides/webslides/issues/57 -- */
 }
 
 header {
-    padding: 0rem 2.4rem 2.4rem 2.4rem;
+    padding: 0 2.4rem;
+    margin-bottom: 2.4rem;
+    transition: all 0.4s ease-in-out;
+    width: 100%;
+}
+
+subject {
+    padding: 0 2.4rem;
+    margin-bottom: 2.4rem;
     transition: all 0.4s ease-in-out;
     width: 100%;
 }
 
 
 footer {
-    padding: 2.4rem 2.4rem 0rem 2.4rem;
+    padding: 0 2.4rem;
+    margin-top: 2.4rem;
     transition: all 0.4s ease-in-out;
     width: 100%;
 }
@@ -61,6 +72,7 @@ footer {
 }
 
 header p,
+subject p,
 footer p {
     line-height: 4.8rem;
     margin-bottom: 0;
@@ -77,6 +89,7 @@ footer {
 }
 
 header,
+subject,
 footer {
     z-index: 3;
 }
@@ -86,6 +99,27 @@ header,
     left: 0;
     position: absolute;
     top: 0;
+}
+
+subject {
+    left: 0;
+    position: absolute;
+
+    @media (max-height: 1080px) {
+        top: 9.6rem;
+    }
+
+    @media (max-height: 768px) {
+        top: 7.2rem;
+    }
+
+    @media (max-height: 600px) {
+        top: 4.8rem;
+    }
+
+    @media (max-height: 360px) {
+        top: 0rem;
+    }
 }
 
 .ws-ready footer {
@@ -103,6 +137,7 @@ header[role='banner'] {
 }
 
 @media (max-width: 767px) {
+
     footer .alignleft,
     footer .alignright {
         display: block;

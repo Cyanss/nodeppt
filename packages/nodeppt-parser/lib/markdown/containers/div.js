@@ -10,7 +10,7 @@ module.exports = {
     render(tokens, idx) {
         const token = tokens[idx];
         let tag = 'div';
-        if (['footer', 'note', 'header'].includes(token.info)) {
+        if (['footer', 'note', 'header', 'subject'].includes(token.info)) {
             tag = token.info;
         }
         if (token.nesting === 1) {

@@ -11,8 +11,25 @@ module.exports = tree => {
         // 遍历wrap中的节点分别处理 内部header和footer
         wrapNode.content = wrapNode.content.map(node => {
 
-            //先处理header
-            if (node.tag === 'header') {
+            if (node.tag === 'subject') {
+                // 监测到wrap中有header 对全局的 header进行删除覆盖
+                slideNode.content = slideNode.content.filter(slideContentNode => slideContentNode.tag !== 'subject');
+
+                node.content = [{
+                    tag: 'div',
+                    attrs: {
+                        class: 'subject-wrap',
+                        subject: 'true'
+                    },
+                    content: node.content
+                }];
+
+                // 添加当前节点 到 wrap上方
+                slideNode.content.unshift(node);
+
+                return false;
+
+            } else if (node.tag === 'header') {
 
                 // 监测到wrap中有header 对全局的 header进行删除覆盖
                 slideNode.content = slideNode.content.filter(slideContentNode => slideContentNode.tag !== 'header');
@@ -57,8 +74,8 @@ module.exports = tree => {
 
     if (slideNode.content && slideNode.content.length) {
         slideNode.content = slideNode.content.filter(node => {
-            // 遍历 header 和 footer 支持 背景图
-            if (node.tag === 'header' || node.tag === 'footer') {
+            // 遍历 header、subject 和 footer 支持 背景图
+            if (node.tag === 'header' || node.tag === 'subject' || node.tag === 'footer') {
 
                 // slide 使用 youtube、video 以及 fullscreen 属性时 移除 header 和 footer 
                 const slideAttrs = slideNode.attrs;
@@ -69,7 +86,7 @@ module.exports = tree => {
                     return false;
                 }
 
-                if(slideAttrs.youtube || slideAttrs.video ) {
+                if (slideAttrs.youtube || slideAttrs.video) {
                     return false;
                 }
 
@@ -79,7 +96,13 @@ module.exports = tree => {
                     return false;
                 }
 
-                 // disablefooter
+                // disablesubject
+
+                if (node.tag === 'subject' && slideAttrs.class && slideAttrs.class.indexOf('disablesubject') !== -1) {
+                    return false;
+                }
+
+                // disablefooter
 
                 if (node.tag === 'footer' && slideAttrs.class && slideAttrs.class.indexOf('disablefooter') !== -1) {
                     return false;

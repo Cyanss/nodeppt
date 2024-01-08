@@ -17,6 +17,16 @@ module.exports = tree => {
         return node;
     });
 
+    tree.match({ tag: 'subject' }, node => {
+        node.attrs = mergeAttrs({
+                subject: 'true',
+                class: 'subject'
+            },
+            node.attrs
+        );
+        return node;
+    });
+
     tree.match({ tag: 'footer' }, node => {
         node.attrs = mergeAttrs({
                 footer: 'true',

@@ -36,7 +36,7 @@ module.exports = (plugins) => {
         let headerHtml = '';
         if (headerTags.length > 0 && headerContents.length > 0) {
             let headerTag = headerTags[0];
-            let headerContent = headerContents[0].split(/\n<footer.*>|<slide.*>/im)[0];
+            let headerContent = headerContents[0].split(/\n<subject.*>|<footer.*>|<slide.*>/im)[0];
             let headerAttr = mdRender(headerContent);
             headerHtml = `
 ${headerTag}
@@ -49,6 +49,26 @@ ${headerAttr}
         }
         // console.log('headerHtml', headerHtml)
 
+        // 全局 subject 
+        const subjectTags = str.match(/\n<subject\s*(.*)>/gim) || [];
+        const subjectContents = str.split(/\n<subject.*>/im);
+        subjectContents.shift();
+        let subjectHtml = '';
+        if (subjectTags.length > 0 && subjectContents.length > 0) {
+            let subjectTag = subjectTags[0];
+            let subjectContent = subjectContents[0].split(/\n<header.*>|<footer.*>|<slide.*>/im)[0];
+            let subjectAttr = mdRender(subjectContent);
+            subjectHtml = `
+${subjectTag}
+<div class="subject-wrap" subject="true">
+${subjectAttr}
+</div>
+</subject>
+      `;
+
+        }
+        // console.log('subjectHtml', subjectHtml)
+
 
         // 全局 footer 
         const footerTags = str.match(/\n<footer\s*(.*)>/gim) || [];
@@ -58,7 +78,7 @@ ${headerAttr}
         let footerHtml = '';
         if (footerTags.length > 0 && footerContents.length > 0) {
             let footerTag = footerTags[0];
-            let footerContent = footerContents[0].split(/\n<header.*>|<slide.*>/im)[0];
+            let footerContent = footerContents[0].split(/\n<header.*>|<subject.*>|<slide.*>/im)[0];
             let footerAttr = mdRender(footerContent);
             footerHtml = `
 ${footerTag}
@@ -77,17 +97,19 @@ ${footerAttr}
         return contents
             .map((c, i) => {
                 var attr = mdRender(c);
-                // console.log('\n',attr);
+                // console.log('\n', attr);
                 // 生成 attr
                 const html = `
 ${slideTag[i]}
 ${headerHtml}
+${subjectHtml}
 <div class="wrap" wrap="true">
 ${attr}
 </div>
 ${footerHtml}
 </slide>
       `;
+                // console.log('contentHtml\n', html)
                 // 生成 content ast
                 return posthtml(buildInPosthtmlPlugins.concat(posthtmlPlugins)).process(html, { sync: true }).html;
             })

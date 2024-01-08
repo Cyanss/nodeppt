@@ -40,9 +40,9 @@ a:hover {
     color: @link-hover;
 }
 
-.flexblock li > a,
-[class*='bg-'] li > a,
-[class*='bg-gradient-'] li > a,
+.flexblock li>a,
+[class*='bg-'] li>a,
+[class*='bg-gradient-'] li>a,
 article header a {
     color: inherit;
 }
@@ -83,10 +83,12 @@ pre {
     background: @white;
     border: 1px solid fade(@stratos, (0.1 * 100));
     box-shadow: 0 8px 16px fade(@stratos, (0.04 * 100)), 0 4px 16px fade(@black, (0.08 * 100));
+
     &:hover {
         box-shadow: 0 8px 16px rgba(0, 40, 160, 0.08), 0 8px 24px fade(@black, (0.08 * 100));
     }
 }
+
 pre.no-style {
     background: transparent;
     border: none;
@@ -116,8 +118,13 @@ Slides - Backgrounds <section class="bg-primary">
 @bg-colors: @royal-blue, @havelock-blue, @catskill-white, @cod-gray, @big-stone, @rhino, @gray-brown, @mischka,
     @pine-green, @purple-heart, @cardinal, @white, @facebook;
 
-.bg-colors-mixin(@names; @colors; @index) when (iscolor(extract(@colors, @index))) and (@index > 0) {
-    .bg-colors-mixin(@names; @colors; (@index - 1));
+.bg-colors-mixin(@names;
+@colors;
+
+@index) when (iscolor(extract(@colors, @index))) and (@index > 0) {
+    .bg-colors-mixin(@names;
+    @colors;
+    (@index - 1));
 
     @name: extract(@names, @index);
     @color: extract(@colors, @index);
@@ -126,13 +133,71 @@ Slides - Backgrounds <section class="bg-primary">
         background-color: @color;
     }
 }
+
 // prettier-ignore
-.bg-colors-mixin(@bg-color-names; @bg-colors;length(@bg-colors));
+.bg-colors-mixin(@bg-color-names;
+@bg-colors;
+length(@bg-colors));
 
 [class*='bg-'] .bg-white {
     color: @body-color;
     text-shadow: none;
 }
+
+/* High Light Color*/
+
+@apple: #1a2028; 
+@dawn: #f2f5f6;
+@night: #1c1f1f;
+
+@busblue: #0a347f;
+@skyblue: #00ccff;
+@dawnblue: #004979;
+@nightblue: #04102b;
+
+@alphas: 90, 80, 70, 60, 50, 40, 30, 20, 10;
+
+@color-values: @apple, @dawn, @night, @busblue, @skyblue, @dawnblue, @nightblue;
+
+@color-names: apple, dawn, night, busblue, skyblue, dawnblue, nightblue;
+
+@color-length: length(@color-values);
+
+
+.hlca(@color-name, @color-value, @alpha) when(@alpha <=90) {
+
+    .hl-@{color-name}-@{alpha} {
+        color: fade(@color-value, @alpha)
+    }
+
+    .hlca(@color-name, @color-value, @alpha + 10);
+}
+
+.hlc(@index) when(@index <=@color-length) {
+
+    @color-name: extract(@color-names, @index);
+    @color-value: extract(@color-values, @index);
+
+    .hl-@{color-name} {
+        color: fade(@color-value, 100)
+    }
+
+    .hl-@{color-name}-light {
+        color: fade(@color-value, (0.8 * 100))
+    }
+
+    .hl-@{color-name}-dark {
+        color: fade(@color-value, (0.2 * 100))
+    }
+
+    .hlca(@color-name, @color-value, 10);
+
+    .hlc(@index + 1)
+}
+
+.hlc(1);
+
+
 
 /* BG Apple Keynote*/
 
@@ -290,8 +355,7 @@ Slides - Backgrounds <section class="bg-primary">
 .bg-green,
 .bg-purple,
 .bg-red,
-.bg-facebook
-[class*='bg-black'],
+.bg-facebook [class*='bg-black'],
 [class*='bg-gradient-'] {
     color: @white;
     text-shadow: 0 1px 0 #013;
@@ -311,7 +375,7 @@ Slides - Backgrounds <section class="bg-primary">
 .bg-trans-gradient {
     background: linear-gradient(to top, fade(@black, (0.8 * 100)) 0%, fade(@black, (0 * 100)) 100%);
 }
- 
+
 /*Horizontal Gradient*/
 
 .bg-gradient-h {
@@ -436,9 +500,11 @@ nav[role='navigation'] li {
         background-color: #555;
         color: @white;
     }
+
     a {
         background-color: rgba(50, 50, 50, 0.9);
         color: @white;
+
         &:hover {
             background-color: rgba(50, 50, 50, 0.7);
         }
@@ -448,8 +514,13 @@ nav[role='navigation'] li {
 @socials: twitter, facebook, linkedin, dribbble, github, email;
 @socials-colors: #1da1f3, @facebook, #1683bb, #ea4c89, #60b044, #dd4b39;
 
-.socials-colors-mixin(@names; @colors; @index) when (iscolor(extract(@colors, @index))) and (@index > 0) {
-    .socials-colors-mixin(@names; @colors; (@index - 1));
+.socials-colors-mixin(@names;
+@colors;
+
+@index) when (iscolor(extract(@colors, @index))) and (@index > 0) {
+    .socials-colors-mixin(@names;
+    @colors;
+    (@index - 1));
 
     @name: extract(@names, @index);
     @color: extract(@colors, @index);
@@ -458,8 +529,11 @@ nav[role='navigation'] li {
         background-color: @color;
     }
 }
+
 // prettier-ignore
-.socials-colors-mixin(@socials; @socials-colors;length(@socials-colors));
+.socials-colors-mixin(@socials;
+@socials-colors;
+length(@socials-colors));
 
 /*===================================================
 .flexblock li hover/active
@@ -535,7 +609,7 @@ flexblock.steps
 }
 
 .steps li:hover,
-.steps.blink li:hover > a {
+.steps.blink li:hover>a {
     background-color: #b8cef7;
 }
 
@@ -543,13 +617,16 @@ flexblock.steps
     .process.step-2 {
         border-left-color: #e8eef7;
     }
+
     .process.step-3 {
         border-left-color: #dde5f3;
     }
+
     .process.step-4 {
         border-left-color: #cdd8ec;
     }
-    .steps li:hover + li [class*='step-'] {
+
+    .steps li:hover+li [class*='step-'] {
         border-left-color: #b8cef7;
     }
 }
@@ -559,12 +636,10 @@ Items: You can use for settings, drag&drop, close/delete...
 =========================================================== */
 
 .specs li:after {
-    background: linear-gradient(
-        to right,
+    background: linear-gradient(to right,
         fade(@stratos, (0 * 100)) 0%,
         fade(@stratos, (0.2 * 100)) 50%,
-        fade(@stratos, (0 * 100)) 100%
-    );
+        fade(@stratos, (0 * 100)) 100%);
 }
 
 .specs li:last-child:after {
@@ -576,12 +651,10 @@ Why/Steps/Motivation/Reasons -  Decimal/Numbers
 =========================================================== */
 
 .reasons li:after {
-    background: linear-gradient(
-        to right,
+    background: linear-gradient(to right,
         fade(@stratos, (0 * 100)) 0%,
         fade(@stratos, (0.2 * 100)) 50%,
-        fade(@stratos, (0 * 100)) 100%
-    );
+        fade(@stratos, (0 * 100)) 100%);
 }
 
 .reasons li:last-child:after {
@@ -647,13 +720,13 @@ Gallery li+.overlay+image
 Plans / Pricing
 =========================================== */
 
-.plans > li div,
+.plans>li div,
 .flexblock.plans li:hover div {
     background-color: @white;
 }
 
-.plans > li:hover,
-.plans > li:nth-child(2) {
+.plans>li:hover,
+.plans>li:nth-child(2) {
     box-shadow: 0 1px 1px fade(@black, (0.1 * 100)), 0 8px 16px fade(@black, (0.1 * 100));
 }
 
@@ -668,12 +741,13 @@ Plans / Pricing
 
 .plans ul li {
     border-bottom: 1px solid fade(@stratos, (0.1 * 100));
+
     &:last-child {
         border-bottom: 0;
     }
 }
 
-.plans > li > a {
+.plans>li>a {
     color: @body-color;
     text-shadow: none;
 }
@@ -699,7 +773,7 @@ Resume/Work/CV/Portfolio
     border-bottom: 1px solid fade(@stratos, (0.1 * 100));
 }
 
-.work li:nth-child(odd) > a {
+.work li:nth-child(odd)>a {
     background-color: fade(@stratos, (0.03 * 100));
 }
 
@@ -753,17 +827,17 @@ img.graylogo:hover {
 Cards
 =========================================================== */
 
-[class*='card-'] > a {
+[class*='card-']>a {
     color: inherit;
 }
 
 /* ---  card ul specs --- */
 
-.description > li {
+.description>li {
     border-bottom: 1px solid fade(@stratos, (0.1 * 100));
 }
 
-.description > li:last-child {
+.description>li:last-child {
     border-bottom: 0;
 }
 
@@ -799,6 +873,7 @@ Cards
         border-right-width: 1px;
         border-style: solid;
     }
+
     .cts .subject-right {
         border-image: linear-gradient(90deg, transparent, fade(@black, (0.4 * 100)) 50%, transparent) 1 100%;
         border-left-width: 1px;
@@ -811,22 +886,27 @@ Tables
 =========================================== */
 
 table.table-dark {
+
     td,
     th,
     thead {
         border: 1px solid fade(@black, (0.5 * 100));
     }
+
     thead {
         background-color: fade(@black, (0.3 * 100));
     }
-    tr:nth-child(even) > td {
+
+    tr:nth-child(even)>td {
         background: fade(@black, (0.1 * 100));
     }
-    tr > td {
+
+    tr>td {
         border-top: 1px solid fade(@black, (0.5 * 100));
     }
+
     td:hover,
-    tr:nth-child(even) > td:hover {
+    tr:nth-child(even)>td:hover {
         background-color: fade(@white, (0.5 * 100));
     }
 }
@@ -837,16 +917,16 @@ thead {
     border: 1px solid fade(@stratos, (0.1 * 100));
 }
 
-tr:nth-child(even) > td {
+tr:nth-child(even)>td {
     background-color: fade(@stratos, (0.03 * 100));
 }
 
-tr > td {
+tr>td {
     border-bottom: 1px solid fade(@stratos, (0.1 * 100));
 }
 
 td:hover,
-tr:nth-child(even) > td:hover {
+tr:nth-child(even)>td:hover {
     background-color: fade(@stratos, (0.04 * 100));
 }
 
@@ -1003,7 +1083,7 @@ Table of Contents
 ============================== */
 
 .toc,
-.toc ol > li:before,
+.toc ol>li:before,
 .chapter {
     background-color: #f7f9fb;
 }
@@ -1042,25 +1122,29 @@ Slides Index
     background: @index-overlay;
 }
 
-#webslides-zoomed .column > .wrap-zoom {
+#webslides-zoomed .column>.wrap-zoom {
     background-color: @catskill-white;
     box-shadow: 0 1px 1px rgba(0, 0, 0, 0.2), 0 4px 8px rgba(0, 0, 0, 0.04);
     color: @mine-shaft;
+
     &:hover {
         box-shadow: 0 1px 1px rgba(0, 0, 0, 0.2), 0 4px 8px rgba(0, 0, 0, 0.08);
     }
+
     &.current {
         border: 0.6rem solid rgba(0, 20, 280, 0.2);
     }
 }
 
-#webslides-zoomed .row > .wrap-zoom {
+#webslides-zoomed .row>.wrap-zoom {
     background-color: @catskill-white;
     box-shadow: 0 1px 1px rgba(0, 0, 0, 0.2), 0 4px 8px rgba(0, 0, 0, 0.04);
     color: @mine-shaft;
+
     &:hover {
         box-shadow: 0 1px 1px rgba(0, 0, 0, 0.2), 0 4px 8px rgba(0, 0, 0, 0.08);
     }
+
     &.current {
         border: 0.6rem solid rgba(0, 20, 280, 0.2);
     }
